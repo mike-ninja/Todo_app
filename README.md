@@ -83,10 +83,6 @@ To run this application locally, follow these steps:
 - React: JavaScript library for building user interfaces.
 - Node.js: JavaScript runtime environment.
 
-## Contributing
-
-Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request. For major changes, please open an issue first to discuss the changes.
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
