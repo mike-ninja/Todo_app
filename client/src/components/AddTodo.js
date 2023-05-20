@@ -20,7 +20,7 @@ const InputTodo = ({ addTodo }) => {
   }
 
   return (
-    <form className="d-flex" onSubmit={onSubmitForm}>
+    <form className="d-flex mt-5" onSubmit={onSubmitForm}>
       <input
         type="text"
         placeholder="add task"

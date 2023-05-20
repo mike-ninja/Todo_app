@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
+import Header from './components/Header'
 import AddTodo from './components/AddTodo'
 import ListTodos from './components/ListTodos'
 import todoServices from './services/todo'
+
+import './App.css'
 
 const App = () => {
   const [todos, setTodos] = useState([])
@@ -15,7 +18,6 @@ const App = () => {
       await todoServices
         .getAllTodo()
         .then(fetchedTodos => {
-          console.log(fetchedTodos)
           setTodos(fetchedTodos)
         })
     } catch (error) {
@@ -39,16 +41,20 @@ const App = () => {
   const deleteTodo = async (id) => {
     try {
       await todoServices
-        .deleteTodo(id);
-      setTodos(todos.filter((todo) => todo.id !== id));
+        .deleteTodo(id)
+        .then(response => {
+          console.log(response)
+          setTodos(todos.filter((todo) => todo.id !== id))
+      })
     } catch (error) {
-      console.log(`Failed to delete todo: ${error}`);
+      console.log(`Failed to delete todo: ${error}`)
     }
   }
 
   const editTodo = async (todo, task, status) => {
     try {
       const id = todo.id
+      console.log(`Todo ${todo}`)
       const body = {...todo, task: task, status: status}
       todoServices
         .updateTodo(todo.id, body)
@@ -63,7 +69,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>Todo list</h1>
+      <Header />
       <AddTodo addTodo={addTodo} />
       <ListTodos todos={todos} editTodo={editTodo} deleteTodo={deleteTodo}/>
     </div>

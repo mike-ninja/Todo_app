@@ -11,14 +11,12 @@ const ToggleStatus = ({ todo, editTodo }) => {
   return (
     <div className="form-check">
       <input
-        className="form-check-input"
+        className="form-check-input rounded-circle"
         type="checkbox"
         checked={isChecked}
         onChange={toggle}
         id="toggleCheckbox"
       />
-      <label className="form-check-label" htmlFor="toggleCheckbox">
-      </label>
     </div>
   )
 }
