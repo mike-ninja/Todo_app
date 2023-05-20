@@ -1,14 +1,31 @@
-// import Header from './components/Header'
-// import EditTodo from './components/EditTodo'
-import InputTodo from './components/InputTodo'
+import { useEffect, useState } from 'react'
 import ListTodos from './components/ListTodos'
-import './App.css'
+import todoServices from './services/todo'
 
 const App = () => {
+  const [todos, setTodos] = useState([])
+
+  useEffect(() => {
+    fetchTodos()
+  }, [])
+
+  const fetchTodos = async () => {
+    try {
+      await todoServices
+        .getAllTodo()
+        .then(fetchedTodos => {
+          console.log(fetchedTodos)
+          setTodos(fetchedTodos)
+        })
+    } catch (error) {
+      console.log(`Failed to fetch todos ${error}`)
+    }
+  }
+
   return (
     <div className="container">
-      <InputTodo />
-      <ListTodos />
+      <h1>Todo list</h1>
+      <ListTodos todos={todos} />
     </div>
   )
 }
