@@ -30,7 +30,7 @@ const App = () => {
       await todoServices
         .createTodo(newTodo)
         .then(createdTodo => {
-          console.log(createdTodo)
+          console.log('Object Created')
           setTodos(todos.concat(createdTodo))
         })
     } catch (error) {
@@ -54,12 +54,11 @@ const App = () => {
   const editTodo = async (todo, task, status) => {
     try {
       const id = todo.id
-      console.log(`Todo ${todo}`)
       const body = {...todo, task: task, status: status}
-      todoServices
+      await todoServices
         .updateTodo(todo.id, body)
         .then(updatedTodo => {
-          console.log(updatedTodo)
+          console.log(`Todo ${updatedTodo.error}`)
           setTodos(todos.map(todo => todo.id === id ? body : todo))
         })
     } catch (error) {

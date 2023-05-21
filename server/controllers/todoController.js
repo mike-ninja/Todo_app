@@ -34,15 +34,16 @@ const getTodoById = async (req, res) => {
 // Create a todo element
 const createTodo = async (req, res) => {
   try {
-    const newTask = req.body.task
-    const dueDate = req.body.due_date
-
-    const newTodo = await pool.query(
-      'INSERT INTO todo (task, status, due_date) VALUES ($1, $2, $3) RETURNING *',
-      [newTask, false, dueDate]
-    ) 
-
-    res.status(201).json(newTodo.rows)
+    const { task } = req.body
+    if (task.length) {
+      const newTodo = await pool.query(
+        'INSERT INTO todo (task, status) VALUES ($1, $2) RETURNING *',
+        [task, false]
+      )
+      return res.status(201).json(newTodo.rows)
+    } else {
+      return res.status(400).json({ error: 'Task is empty.'})
+    }
   } catch (error) {
     res.status(500).json({ error: 'Failed to create Task.' })
   }
@@ -52,19 +53,20 @@ const createTodo = async (req, res) => {
 const updateTodo = async (req, res) => {
   try {
     const { id } = req.params
-    const newTask = req.body.task
-    const newStatus = req.body.status
-    const newDueDate = req.body.due_date
+    const { task, status } = req.body
 
-    const updatedTodo = await pool.query(
-      'UPDATE todo SET task = $1, status = $2, due_date = $3 WHERE id = $4 RETURNING *',
-      [newTask, newStatus, newDueDate, id]
-    )
-
-    if (!updatedTodo.rows[0]) {
-      return res.status(404).json({ error: 'Task not found.' });
+    if (task.length) {
+      const updatedTodo = await pool.query(
+        'UPDATE todo SET task = $1, status = $2 WHERE id = $3 RETURNING *',
+        [task, status, id]
+      )
+      if (!updatedTodo.rows[0]) {
+        return res.status(404).json({ error: 'Task not found.' });
+      } else {
+        return res.json(updatedTodo.rows[0]);
+      }
     } else {
-      return res.json(updatedTodo.rows[0]);
+      return res.status(400).json({ error: 'Task is empty.'})
     }
   } catch (error) {
     res.status(500).json({ error: 'Failed to update Task.' });

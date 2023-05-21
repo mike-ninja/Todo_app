@@ -9,7 +9,6 @@ const InputTodo = ({ addTodo }) => {
     const newTodo = {
       task: task,
       status: false,
-      due_date: new Date().toISOString(),
     }
     addTodo(newTodo)
     setTask('')
