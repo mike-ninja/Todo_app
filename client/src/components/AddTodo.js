@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const InputTodo = ({ addTodo }) => {
+const AddTodo = ({ addTodo }) => {
   const [task, setTask] = useState('')
 
   const handleChange = (event) => {
@@ -31,4 +31,4 @@ const InputTodo = ({ addTodo }) => {
   )
 }
 
-export default InputTodo
+export default AddTodo
