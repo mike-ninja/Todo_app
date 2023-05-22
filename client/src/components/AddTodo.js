@@ -3,6 +3,9 @@ import { useState } from 'react'
 const InputTodo = ({ addTodo }) => {
   const [task, setTask] = useState('')
 
+  const handleChange = (event) => {
+    setTask(event.target.value)
+  }
 
   const onSubmitForm = (event) => {
     event.preventDefault()
@@ -12,10 +15,6 @@ const InputTodo = ({ addTodo }) => {
     }
     addTodo(newTodo)
     setTask('')
-  }
-
-  const handleChange = (event) => {
-    setTask(event.target.value)
   }
 
   return (

@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 const ToggleStatus = ({ todo, editTodo }) => {
-  const [isChecked, setIsChecked] = useState(todo.status);
+  const [isChecked, setIsChecked] = useState(todo.status)
 
   const toggle = () => {
-    setIsChecked(!isChecked);
-    editTodo(todo, todo.task, !todo.status)
+    setIsChecked(!isChecked)
+    editTodo({...todo, status: !todo.status})
   }
 
   return (

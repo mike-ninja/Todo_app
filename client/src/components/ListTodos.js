@@ -1,23 +1,28 @@
-import EditTodo from './EditTodo';
-import ToggleStatus from './ToggleStatus';
+import EditTodo from './EditTodo'
+import ToggleStatus from './ToggleStatus'
 
 const ListTodos = ({ todos, editTodo, deleteTodo }) => {
-  const sortedTodos = [...todos].sort((a, b) => a.status - b.status);
+  const sortedTodos = [...todos].sort((a, b) => a.status - b.status)
 
   return (
     <table className="table table-striped mt-5">
       <tbody className="mt-3">
         {sortedTodos.map((todo) => (
-          <tr className={todo.status ? 'linethrough-row' : ''} key={todo.id}>
+          <tr className={todo.status ? 'linethrough-row' : ''} 
+            key={todo.id}>
             <td>
               <ToggleStatus todo={todo} editTodo={editTodo} />
             </td>
-            <td>{todo.task}</td>
+            <td>
+              {todo.task}
+            </td>
             <td>
               <EditTodo todo={todo} editTodo={editTodo} />
             </td>
             <td>
-              <button className="btn btn-danger" onClick={() => deleteTodo(todo.id)}>
+              <button 
+                className="btn btn-danger" 
+                onClick={() => deleteTodo(todo.id)}>
                 Delete
               </button>
             </td>
@@ -25,7 +30,7 @@ const ListTodos = ({ todos, editTodo, deleteTodo }) => {
         ))}
       </tbody>
     </table>
-  );
-};
+  )
+}
 
-export default ListTodos;
+export default ListTodos
