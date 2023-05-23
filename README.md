@@ -54,19 +54,13 @@ To run this application locally, follow these steps:
    - Configure the database connection settings in `server/db_config/db.js`.
    - Create the table as `server/db_config/database.sql`.
 
-5. Start the server:
+5. Build and start app:
 
    ```shell
-   npm run server
+   ./start_app.sh
    ```
 
-6. Start the client:
-
-   ```shell
-   npm run client
-   ```
-
-7. Open your browser and visit `http://localhost:3000` to access the application.
+6. Open your browser and visit `http://localhost:3001` to access the application.
 
 ## Usage
 
