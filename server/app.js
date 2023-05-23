@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json())
 app.use(express.static('build'))
 
-app.use('/todo', todoRoutes)
+app.use('/api/todos', todoRoutes)
 
 const PORT = 3001
 app.listen(PORT, () => {
