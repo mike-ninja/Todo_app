@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/todo'
+const baseUrl = '/todo'
 
 const getAllTodo = () => {
   const request = axios.get(baseUrl)
