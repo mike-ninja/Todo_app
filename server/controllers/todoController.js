@@ -1,10 +1,10 @@
-const pool = require('../db_config/db')
+// const client = require('../db_config/db')
+const client = require('../db_config/db')
 
 // Get all todo element
 const getAllTodo = async (req, res) => {
   try {
-    const allTodo = await pool.query('SELECT * FROM todo')
-
+    const allTodo = await client.query('SELECT * FROM todo')
     res.json(allTodo.rows)
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve Tasks.' })
@@ -16,11 +16,10 @@ const getTodoById = async (req, res) => {
   try {
     const { id } = req.params
 
-    const todo = await pool.query(
+    const todo = await client.query(
       'SELECT * FROM todo WHERE id = $1',
       [id]
     )
-
     if (!todo.rows[0]) {
       return res.status(404).json({ error: 'Task not found.'})
     } else {
@@ -36,7 +35,7 @@ const createTodo = async (req, res) => {
   try {
     const { task } = req.body
     if (task.length) {
-      const newTodo = await pool.query(
+      const newTodo = await client.query(
         'INSERT INTO todo (task, status) VALUES ($1, $2) RETURNING *',
         [task, false]
       )
@@ -56,7 +55,7 @@ const updateTodo = async (req, res) => {
     const { task, status } = req.body
 
     if (task.length) {
-      const updatedTodo = await pool.query(
+      const updatedTodo = await client.query(
         'UPDATE todo SET task = $1, status = $2 WHERE id = $3 RETURNING *',
         [task, status, id]
       )
@@ -78,11 +77,10 @@ const deleteTodo = async (req, res) => {
   try {
     const { id } = req.params
     
-    const deletedTodo = await pool.query(
+    const deletedTodo = await client.query(
       'DELETE FROM todo WHERE id = $1',
       [id]
     )
-
     if (deletedTodo.rowCount === 0) {
       return res.status(404).json({ error: 'Task not found.' });
     } else {
