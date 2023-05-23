@@ -52,7 +52,7 @@ To run this application locally, follow these steps:
 5. Set up the PostgreSQL database:
    - Create a new database in PostgreSQL.
    - Configure the database connection settings in `server/db_config/db.js`.
-   - Create the table as `server/db_config/database.sql`.
+   - Create the table as shown in `server/db_config/database.sql`.
 
 5. Build and start app:
 
