@@ -3,5 +3,5 @@ CREATE DATABASE todo_db;
 CREATE TABLE todo(
   id SERIAL PRIMARY KEY,
   task VARCHAR(255) NOT NULL,
-  status BOOLEAN,
-)
+  status BOOLEAN
+);
