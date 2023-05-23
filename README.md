@@ -37,29 +37,30 @@ To run this application locally, follow these steps:
    cd Todo_app
    ```
 
-3. Install the dependencies:
+3. Install the client dependencies:
 
    ```shell
-   npm install
+   cd client/ && npm install && cd ..
    ```
 
-4. Set up the PostgreSQL database:
+4. Install the server dependencies:
+
+   ```shell
+   cd server/ && npm install && cd ..
+   ```
+   
+5. Set up the PostgreSQL database:
    - Create a new database in PostgreSQL.
-   - Configure the database connection settings in `server/config/db.js`.
+   - Configure the database connection settings in `server/db_config/db.js`.
+   - Create the table as `server/db_config/database.sql`.
 
-5. Start the server:
-
-   ```shell
-   npm run server
-   ```
-
-6. Start the client:
+5. Build and start app:
 
    ```shell
-   npm run client
+   ./start_app.sh
    ```
 
-7. Open your browser and visit `http://localhost:3000` to access the application.
+6. Open your browser and visit `http://localhost:3001` to access the application.
 
 ## Usage
 
