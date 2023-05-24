@@ -17,11 +17,9 @@ const App = () => {
 
   const fetchTodos = async () => {
     try {
-      await todoServices
+      const fetchedTodos = await todoServices
         .getAllTodo()
-        .then(fetchedTodos => {
-          setTodos(fetchedTodos)
-        })
+      setTodos(fetchedTodos)
     } catch (error) {
       console.log(`Failed to fetch todos: ${error}`)
     }
@@ -30,11 +28,9 @@ const App = () => {
   const addTodo = async (newTodo) => {
     if (newTodo.task.length) {
       try {
-        await todoServices
+        const createdTodo = await todoServices
           .createTodo(newTodo)
-          .then(createdTodo => {
-            setTodos(todos.concat(createdTodo))
-          })
+        setTodos(todos.concat(createdTodo))
       } catch (error) {
         console.log(`Failed to create todo: ${error}`)
       }
@@ -47,10 +43,10 @@ const App = () => {
     try {
       await todoServices
         .deleteTodo(id)
-        .then(response => {
-          setTodos(todos.filter((todo) => todo.id !== id))
-      })
+      setTodos(todos.filter((todo) => todo.id !== id))
     } catch (error) {
+      alert('Task no longer exists!')
+      setTodos(todos.filter(todo => todo.id !== id))
       console.log(`Failed to delete todo: ${error}`)
     }
   }
@@ -59,12 +55,12 @@ const App = () => {
     if (editedTodo.task.length) {
       try {
         const id = editedTodo.id
-        await todoServices
+        const updatedTodo = await todoServices
           .updateTodo(id, editedTodo)
-          .then(response => {
-            setTodos(todos.map(todo => todo.id === id ? response : todo))
-          })
+        setTodos(todos.map(todo => todo.id === id ? updatedTodo : todo))
       } catch (error) {
+        alert('Task no longer exists!')
+        setTodos(todos.filter(todo => todo.id !== editedTodo.id))
         console.log(error.message)
       }
     } else {

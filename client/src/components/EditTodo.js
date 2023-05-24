@@ -8,7 +8,7 @@ const EditTodo = ({ todo, editTodo }) => {
   }
   
   const onSaveChanges = () => {
-    editTodo({...todo, task: task})
+    editTodo({...todo, task: task.trim()})
   }
 
   return (
