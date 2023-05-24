@@ -10,7 +10,7 @@ const AddTodo = ({ addTodo }) => {
   const onSubmitForm = (event) => {
     event.preventDefault()
     const newTodo = {
-      task: task,
+      task: task.trim(),
       status: false,
     }
     addTodo(newTodo)

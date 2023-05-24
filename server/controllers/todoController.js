@@ -33,7 +33,7 @@ const getTodoById = async (req, res) => {
 // Create a todo element
 const createTodo = async (req, res) => {
   try {
-    const { task } = req.body
+    const task = req.body.task.trim()
     if (task.length) {
       const newTodo = await client.query(
         'INSERT INTO todo (task, status) VALUES ($1, $2) RETURNING *',
@@ -52,7 +52,8 @@ const createTodo = async (req, res) => {
 const updateTodo = async (req, res) => {
   try {
     const { id } = req.params
-    const { task, status } = req.body
+    const task = req.body.task.trim()
+    const status = req.body.status
 
     if (task.length) {
       const updatedTodo = await client.query(
