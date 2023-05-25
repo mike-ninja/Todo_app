@@ -79,7 +79,7 @@ To run this application locally, follow these steps:
 
 ## Technologies
 
-- PostgreSQL: Relational database management system.
-- Express: Web application framework for building APIs.
-- React: JavaScript library for building user interfaces.
-- Node.js: JavaScript runtime environment.
+- PostgreSQL v15.3: Relational database management system.
+- Express v4.18.2: Web application framework for building APIs.
+- React v18.2.0: JavaScript library for building user interfaces.
+- Node.js v20.2.0: JavaScript runtime environment.
