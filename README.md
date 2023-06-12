@@ -2,6 +2,8 @@
 
 A simple todo application built using the PERN stack.
 
+Hosted at: https://todo-mike.fly.dev/
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -54,13 +56,19 @@ To run this application locally, follow these steps:
    - Configure the database connection settings in `server/db_config/db.js`.
    - Create the table as shown in `server/db_config/database.sql`.
 
-5. Build and start app:
+6. Build app:
 
    ```shell
-   ./start_app.sh
+   cd client/ && npm run build && cd ..
    ```
 
-6. Open your browser and visit `http://localhost:3001` to access the application.
+7. Start app:
+
+   ```shell
+   cd server/ && npm start
+   ```
+
+8. Open your browser and visit `http://localhost:3001` to access the application.
 
 ## Usage
 
@@ -71,7 +79,7 @@ To run this application locally, follow these steps:
 
 ## Technologies
 
-- PostgreSQL: Relational database management system.
-- Express: Web application framework for building APIs.
-- React: JavaScript library for building user interfaces.
-- Node.js: JavaScript runtime environment.
+- PostgreSQL v15.3: Relational database management system.
+- Express v4.18.2: Web application framework for building APIs.
+- React v18.2.0: JavaScript library for building user interfaces.
+- Node.js v20.2.0: JavaScript runtime environment.
