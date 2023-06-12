@@ -1,45 +1,36 @@
-const pool = require('../db_config/db')
+const Todo = require('../models/todo')
 
-// Get all todo element
 const getAllTodo = async (req, res) => {
   try {
-    const allTodo = await pool.query('SELECT * FROM todo')
-
-    res.json(allTodo.rows)
+    const allTodo = await Todo.findAll()
+    res.json(allTodo)
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve Tasks.' })
   }
 }
 
-// Get a todo element
 const getTodoById = async (req, res) => {
   try {
     const { id } = req.params
 
-    const todo = await pool.query(
-      'SELECT * FROM todo WHERE id = $1',
-      [id]
-    )
+    const todo = await Todo.findByPk(id)
 
-    if (!todo.rows[0]) {
+    if (!todo) {
       return res.status(404).json({ error: 'Task not found.'})
     } else {
-      return res.json(todo.rows[0])
+      return res.json(todo)
     }
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve Task.' })
   }
 }
 
-// Create a todo element
 const createTodo = async (req, res) => {
   try {
-    const task = req.body.task.trim()
-    if (task.length) {
-      const newTodo = await pool.query(
-        'INSERT INTO todo (task, status) VALUES ($1, $2) RETURNING *',
-        [task, false]
-      )
+    const { task } = req.body
+
+    if (task && task.trim().length) {
+      const newTodo = await Todo.create({ task, completed: false })
       return res.status(201).json(newTodo.rows)
     } else {
       return res.status(400).json({ error: 'Task is empty.'})
@@ -49,42 +40,37 @@ const createTodo = async (req, res) => {
   }
 }
 
-// Update a todo element
 const updateTodo = async (req, res) => {
   try {
     const { id } = req.params
-    const task = req.body.task.trim()
-    const status = req.body.status
+    const { task, status } = req.body
 
-    if (task.length) {
-      const updatedTodo = await pool.query(
-        'UPDATE todo SET task = $1, status = $2 WHERE id = $3 RETURNING *',
-        [task, status, id]
-      )
-      if (!updatedTodo.rows[0]) {
-        return res.status(404).json({ error: 'Task not found.' });
+    if (task && task.trim().length) {
+      const updatedTodo = await Todo.update({ task, completed: status }, {
+        where: { id },
+        returning: true,
+      })
+
+      if (updatedTodo[0] === 0) {
+        return res.status(404).json({ error: 'Task not found.'})
       } else {
-        return res.json(updatedTodo.rows[0]);
+        return res.json(updatedTodo[1][0])
       }
-    } else {
-      return res.status(400).json({ error: 'Task is empty.'})
     }
   } catch (error) {
     res.status(500).json({ error: 'Failed to update Task.' });
   }
 }
 
-// Delete a todo element
 const deleteTodo = async (req, res) => {
   try {
     const { id } = req.params
     
-    const deletedTodo = await pool.query(
-      'DELETE FROM todo WHERE id = $1',
-      [id]
-    )
+    const deletedTodo = await Todo.destroy({
+      where: { id },
+    })
 
-    if (deletedTodo.rowCount === 0) {
+    if (deletedTodo === 0) {
       return res.status(404).json({ error: 'Task not found.' });
     } else {
       return res.json({ message: 'Task was deleted' });
