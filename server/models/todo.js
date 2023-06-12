@@ -18,7 +18,9 @@ const Todo = sequelize.define('Todo', {
   }
 }, {
   tableName: 'todo',
-  timestamps: false
+  timestamps: true,
+  createdAt: 'createdat',
+  updatedAt: 'updatedat'
 })
 
 module.exports = Todo

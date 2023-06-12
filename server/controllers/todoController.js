@@ -31,7 +31,7 @@ const createTodo = async (req, res) => {
 
     if (task && task.trim().length) {
       const newTodo = await Todo.create({ task, completed: false })
-      return res.status(201).json(newTodo.rows)
+      return res.status(201).json(newTodo)
     } else {
       return res.status(400).json({ error: 'Task is empty.'})
     }
@@ -46,7 +46,7 @@ const updateTodo = async (req, res) => {
     const { task, status } = req.body
 
     if (task && task.trim().length) {
-      const updatedTodo = await Todo.update({ task, completed: status }, {
+      const updatedTodo = await Todo.update({ task, status: status }, {
         where: { id },
         returning: true,
       })
